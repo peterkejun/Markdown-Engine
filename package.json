@@ -2,8 +2,9 @@
   "name": "markdown-engine",
   "version": "1.0.0",
   "description": "Conversion engine between markdown and formatted markdown.",
-  "main": "src/index.js",
+  "main": "built/index.js",
   "scripts": {
+    "start": "tsc && node built/index.js",
     "compile": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
