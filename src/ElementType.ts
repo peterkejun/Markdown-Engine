@@ -1,4 +1,4 @@
-const enum ElementType {
+export const enum ElementType {
     H1 = 'h1',
     H2 = 'h2',
     H3 = 'h3',
@@ -12,16 +12,21 @@ const enum ElementType {
     CODE = 'code',
     LINK = 'link',
     IMAGE = 'image',
+    NEWLINE = 'new line',
 }
 
-exports.getDelimiter = (type: ElementType): string => {
-    switch (type) {
-        case ElementType.CODE: return '```';
-        default: return '\n';
+// This function returns the closing type corresponding to an opening type.
+export const getTypeDelimiter = (type: ElementType): ElementType => {
+    // the closing type for headings is newline
+    if (isHeading(type)) {
+        return ElementType.NEWLINE;
+    } else {
+        return type;
     }
 }
 
-exports.incrementHeadingType = (type: ElementType): ElementType => {
+// This function returns the incremented heading for a given heading, i.e. H1 => H2, H4 => H5, H6 => H6.
+export const incrementHeadingType = (type: ElementType): ElementType => {
     switch (type) {
         case ElementType.H1: return ElementType.H2;
         case ElementType.H2: return ElementType.H3;
@@ -32,7 +37,8 @@ exports.incrementHeadingType = (type: ElementType): ElementType => {
     }
 };
 
-exports.isHeading = (type: ElementType): Boolean => {
+// This function returns true if given type is a heading, and false otherwise.
+export const isHeading = (type: ElementType): Boolean => {
     return type === ElementType.H1 ||
         type === ElementType.H2 ||
         type === ElementType.H3 ||

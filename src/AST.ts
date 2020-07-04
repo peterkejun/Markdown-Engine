@@ -1,4 +1,11 @@
-class ASTNode {
+/*
+This module has building-block classes for an Abstract Syntax Tree.
+*/
+
+import { ElementType } from './ElementType';
+import { ElementStyle } from './ElementStyle';
+
+export class ASTNode {
     // array of child nodes, order matters
     private children: Array<ASTNode>;
 
@@ -22,12 +29,12 @@ class ASTNode {
 }
 
 // A dummy root node, only exist once in an AST
-class ASTRootNode extends ASTNode {
+export class ASTRootNode extends ASTNode {
 
 }
 
 // A type node for indicating element type
-class ASTTypeNode extends ASTNode {
+export class ASTTypeNode extends ASTNode {
     // type of element, e.g. H1, H5, TEXT, BLOCKQUOTE
     private type: ElementType;
 
@@ -42,8 +49,24 @@ class ASTTypeNode extends ASTNode {
     }
 }
 
+// A style node for indicating element style
+export class ASTStyleNode extends ASTNode {
+    // style of element, e.g. bold, italic, strikethrough
+    private style: ElementStyle;
+
+    constructor(style: ElementStyle) {
+        super();
+        this.style = style;
+    }
+
+    // getter for element style
+    get elementStyle(): ElementStyle {
+        return this.style;
+    }
+}
+
 // A content node for storing raw text
-class ASTContentNode extends ASTNode {
+export class ASTContentNode extends ASTNode {
     // raw text
     private text: string;
 
@@ -57,11 +80,4 @@ class ASTContentNode extends ASTNode {
         return this.text;
     }
 }
-
-module.exports = {
-    ASTNode,
-    ASTRootNode,
-    ASTTypeNode,
-    ASTContentNode,
-};
 
